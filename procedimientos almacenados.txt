@@ -1,0 +1,61 @@
+DELIMITER $$
+
+-- Crear cliente
+CREATE PROCEDURE sp_insertar_cliente(
+  IN p_nombres VARCHAR(50),
+  IN p_apellidos VARCHAR(50),
+  IN p_direccion VARCHAR(50),
+  IN p_telefono VARCHAR(50)
+)
+BEGIN
+  INSERT INTO clientes (nombres, apellidos, direccion, telefono)
+  VALUES (p_nombres, p_apellidos, p_direccion, p_telefono);
+END$$
+
+-- Listar clientes
+CREATE PROCEDURE sp_listar_clientes()
+BEGIN
+  SELECT * FROM clientes;
+END$$
+
+-- Actualizar cliente
+CREATE PROCEDURE sp_actualizar_cliente(
+  IN p_id_cliente INT,
+  IN p_nombres VARCHAR(50),
+  IN p_apellidos VARCHAR(50),
+  IN p_direccion VARCHAR(50),
+  IN p_telefono VARCHAR(50)
+)
+BEGIN
+  UPDATE clientes
+  SET nombres = p_nombres,
+      apellidos = p_apellidos,
+      direccion = p_direccion,
+      telefono = p_telefono
+  WHERE id_cliente = p_id_cliente;
+END$$
+
+-- Eliminar cliente
+CREATE PROCEDURE sp_eliminar_cliente(
+  IN p_id_cliente INT
+)
+BEGIN
+  DELETE FROM clientes
+  WHERE id_cliente = p_id_cliente;
+END$$
+
+-- Obtener Id_Cliente
+CREATE PROCEDURE sp_obtener_id_cliente(
+  IN p_nombres VARCHAR(50),
+  IN p_apellidos VARCHAR(50)
+)
+BEGIN
+  SELECT id_cliente
+  FROM clientes
+  WHERE nombres = p_nombres AND apellidos = p_apellidos
+  LIMIT 1;
+END$$
+
+
+DELIMITER ;
+

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>SP Sistema</title>
+  <script>
+    // Al cargar la página, chequear si hay sesión activa y redirigir
+    window.onload = function () {
+      fetch('auth/check_session.php')
+        .then(res => res.json())
+        .then(data => {
+          if (data.logged_in) {
+            // Si ya está logueado, ir al dashboard
+            window.location.href = 'dashboard.php';
+          } else {
+            // Si no, ir a login
+            window.location.href = 'login.php';
+          }
+        })
+        .catch(() => {
+          // En caso de error, ir a login
+          window.location.href = 'login.php';
+        });
+    };
+  </script>
+</head>
+<body>
+  <p>Redirigiendo...</p>
+</body>
+</html>
